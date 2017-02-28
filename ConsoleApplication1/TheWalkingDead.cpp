@@ -3,9 +3,9 @@
 #include <ctime>
 #include <string>
 
-enum Weapon { FISTS, GUN, SHOTGUN, REVOLVER, SNIPER, MACHINE_GUN, MAX };
+enum Weapon { FISTS, GUNSHOT, MACHINEGUN, KNIFE, SWORD, SNIPER, MAX};
 
-const int ZOMBIE_NUM = 10;
+
 
 class Zombie;
 
@@ -64,9 +64,9 @@ bool Player::isAlive()
 
 Player::Player() //Constructor de Player;
 {
-	weapon = static_cast<Weapon>(rand() % static_cast<int>(Weapon::MAX));
-	precision = (rand() % 100 / 100.0);
-	life = (rand() % 101);
+	weapon= static_cast<Weapon>(rand() % static_cast<int>(Weapon::MAX));
+	precision= (rand() % 10 / 10.f);
+	life = 100;
 
 }
 
@@ -76,10 +76,12 @@ Player::Player() //Constructor de Player;
 
 bool Zombie::isAlive()
 {
-	if (life > 0)
-		return true;
+	return life < 0;   
+
+	/*if (life > 0)
+	return true;
 	else
-		return false;
+	return false;*/
 }
 
 void Zombie::attack(Player &l)
@@ -96,7 +98,7 @@ void Zombie::attack(Player &l)
 
 Zombie::Zombie() // Constructor de zombie;
 {
-	distanceToPlayer = (rand() % 181 + 20);
+	distanceToPlayer = (rand() % 100);
 	speed = (rand() % 100 / 10.0);
 	damage = (rand() % 100 / 10.0);
 	life = (rand() % 101);
@@ -106,14 +108,18 @@ void main()
 {
 	srand(time(nullptr));
 
-	Player player;
-	std::cout << "PLAYER STATS: --------------//" "Weapon: " << player.weapon<< "//-------------- Precision: " << player.precision<< "//-------------- Life: "<< player.life <<std::endl;
+	Player player; //LLAMADA AL CONSTRUCTOR
+	std::cout << "PLAYER STATS: --------------//" "Weapon: " << player.weapon<< "//-------------- Precision: " 
+		<< player.precision<< "//-------------- Life: "<< player.life <<std::endl;
 	
+	const int ZOMBIE_NUM = 10;
 	Zombie zombies[ZOMBIE_NUM];
+
 	int counter = 1;
 	for (int c = 0; c < ZOMBIE_NUM; c++)
 	{
-		std::cout << "ZOMBIE  [" <<counter<< "]  STATS:--------------//" "Distance " << zombies[c].distanceToPlayer << "//--------------Speed: " << zombies[c].speed << "//--------------Life: " << zombies[c].life << std::endl;
+		std::cout << "ZOMBIE  [" <<counter<< "]  STATS:--------------//" "Distance " << zombies[c].distanceToPlayer << "//--------------Speed: " 
+		<< zombies[c].speed << "//--------------Life: " << zombies[c].life << std::endl;
 		counter++;
 	}
 
@@ -128,6 +134,8 @@ void main()
 
 		for (int i = 0; i > ZOMBIE_NUM; i++)
 		{
+			
+
 			if (zombies[i].isAlive())
 			{
 				player.attack(zombies[i]);
@@ -137,7 +145,7 @@ void main()
 		}
 
 
-	} while (player.isAlive() == true && zombiesAreAlive == true);
+	} while (player.isAlive()  && zombiesAreAlive);
 
 	
 
