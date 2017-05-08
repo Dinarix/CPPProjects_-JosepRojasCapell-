@@ -9,13 +9,14 @@ int main()
 {
 
 	std::stack<int> element1({ 1,2,3 });
-	std::stack<int> element2({ 4,5,6, });
+	std::stack<int> element2({ 1,2,3, 4, 5});
 	std::stack<char> charelement({ '(', ')' });
 
 	auto sm = superMerge(element1, element2);
 	auto ph = putHat(element1, element2);
 	auto ttq = transformToQ(element1);
 	auto bp = balancedP(charelement);
+	auto ih = isHat(element1, element2);
 
 
 
@@ -113,4 +114,35 @@ bool balancedP(std::stack<char>el1)
 	}
 	
 	return right == left;
+}
+
+bool isHat(std::stack<int>el1, std::stack<int>el2)
+{
+	int iguals = 0;
+
+	while (!el1.empty())
+	{
+		if (el1.top() == el2.top())
+		{
+			iguals++;
+			el1.pop();
+			el2.pop();
+		}
+
+		else 
+		{
+			el1.pop();
+			el2.pop();
+		}
+	}
+
+	if (iguals == sizeof el1)
+	{
+		return true;
+	}
+
+	else
+	{
+		return false;
+	}
 }
