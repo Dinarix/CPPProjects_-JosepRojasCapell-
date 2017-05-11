@@ -12,7 +12,8 @@ int main()
 	std::stack<int> element2({ 1,2,3, 4, 5});
 	std::stack<char> charelement({ '(', ')' });
 
-	auto sm = superMerge(element1, element2);
+	std::stack<int> 	sm = superMerge(element1, element2);
+
 	auto ph = putHat(element1, element2);
 	auto ttq = transformToQ(element1);
 	auto bp = balancedP(charelement);
